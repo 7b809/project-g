@@ -58,10 +58,12 @@ def todo_route():
         return jsonify({"error": "❌ Please provide 'code' query param"}), 400
 
     prompt = f"""
-    You are a helpful coding assistant. 
-    The following React code contains TODO comments. 
-    Please complete the TODOs and return only the fixed code:
+    You are a helpful coding assistant.
+    First, detect what programming language this code is written in.
+    Then, complete the TODO comments accordingly.
+    Return only the fixed code (no explanations).
 
+    Code:
     {code}
     """
 
@@ -70,6 +72,7 @@ def todo_route():
         "todo_suggestion": response_text,
         "model_used": used_model
     })
+    
 
 # ---------------------------
 # Route for Debugging tasks
@@ -108,3 +111,4 @@ def prompt_route():
 # ---------------------------
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
